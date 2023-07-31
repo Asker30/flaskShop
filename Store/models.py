@@ -8,6 +8,7 @@ class Users(db.Model):
     email = db.Column(db.String(50), unique=True)
     psw = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, default=datetime.datetime.utcnow) # Дата регистрации
+    active = db.Column(db.Boolean, default=True)
     
     def __repr__(self):
         return f'User: {self.name}'
