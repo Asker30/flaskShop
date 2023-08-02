@@ -8,6 +8,7 @@ class Users(db.Model):
     email = db.Column(db.String(50), unique=True)
     psw = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, default=datetime.datetime.utcnow) # Дата регистрации
+    user_type = db.Column(db.String(10), default='user')
     active = db.Column(db.Boolean, default=True)
     
     def __repr__(self):
@@ -22,16 +23,17 @@ class Product(db.Model):
     company = db.Column(db.String(50), unique=True)
     price = db.Column(db.Integer)
     count = db.Column(db.Integer)
+    comments = db.relationship('Comment', backref='product')
     
     def __repr__(self):
         return f'Product: {self.title}'
     
 class Comment(db.Model):
     """Таблица комментариев к товаром.
-        Связана с таблицей товаров свяью один ко многим
+        Связана с таблицей товаров связью один ко многим
     """
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     text = db.Column(db.Text)
     comment_creat = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     

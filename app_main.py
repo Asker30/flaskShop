@@ -1,5 +1,5 @@
 from Store import store
-from Store import views
+from Store import views, admin
 from Forum import forum
 
 if __name__ == '__main__':
