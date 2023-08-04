@@ -21,21 +21,22 @@ def database_list():
         return render_template('database_list.html')
     return redirect(url_for('admin_login'))
 
-@store.route('/add_product', methods=['GET', 'POST'])
+@store.route(BASE_URL + '/add_product', methods=['GET', 'POST'])
 def add_product():
     """Добавление данных в таблицу с продуктами"""
     if request.method == 'POST':
         title = request.form['title']
         description = request.form['description']
+        company = request.form['company']
         photo = request.files['photo']
         price = float(request.form['price'])
         count = int(request.form['count'])
 
         # Сохраняем загруженное изображение в папку 'static/photos'
-        photo.save(f'D:/PetPoject/flaskShop/Store/img/{photo.filename}')
+        photo.save(f'D:/PetPoject/flaskShop/Store/static/img/{photo.filename}')
 
         # Создаем экземпляр объекта Product и добавляем его в базу данных
-        new_product = models.Product(title=title, description=description, img=photo.filename, price=price, count=count)
+        new_product = models.Product(title=title, description=description, img=photo.filename, price=price, count=count, company=company)
         try:
             db.session.add(new_product)
             db.session.commit()

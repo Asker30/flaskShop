@@ -12,7 +12,8 @@ def root_redirect():
 def base():
     """Базовая страница"""
     if session:
-        return render_template('base.html', name=session[0])
+        products = models.Product.query.all()
+        return render_template('base.html', products=products)
     else:
         return redirect(url_for('register'))
 
