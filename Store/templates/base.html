@@ -1,21 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Список продуктов</title>
-</head>
+
+<title></title>
 <body>
-    <h1>Список продуктов</h1>
-    <ul>
-        {% for product in products %}
-        <li>
-            <strong>{{ product.title }}</strong><br>
-            Описание: {{ product.description }}<br>
-            Цена: {{ product.price }}<br>
-            Количество: {{ product.count }}<br>
-            <!-- Путь к изображениям фотографий должен быть правильным, в зависимости от вашего приложения -->
-            <img src="{{url_for('static', filename='img/' + product.img)}}" width="130" height="130">
-        </li>
-        {% endfor %}
-    </ul>
+    <a id="logout" href="/Shop.store/logout">Выход из аккаунта</a>
+    {% block content %}{% endblock %}
 </body>
 </html>

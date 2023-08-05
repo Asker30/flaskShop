@@ -32,3 +32,8 @@ label {
     align-items: center;
     height: 100vh;
 }
+
+#register {
+    padding-left: 40%;
+    padding-top: 200px;
+}

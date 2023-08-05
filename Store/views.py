@@ -13,7 +13,7 @@ def base():
     """Базовая страница"""
     if session:
         products = models.Product.query.all()
-        return render_template('base.html', products=products)
+        return render_template('product_list.html', products=products)
     else:
         return redirect(url_for('register'))
 
@@ -36,7 +36,7 @@ def register():
             finally:
                 db.session.close()
 
-        return render_template('register.html')
+        return render_template('register.html', url=BASE_URL)
     return redirect(url_for('base'))
 
 @store.route(BASE_URL + '/login', methods=['POST', 'GET'])
@@ -50,7 +50,7 @@ def login():
                 session.append(name)
                 return redirect(url_for('base'))
             
-        return render_template('login.html' )
+        return render_template('login.html', url=BASE_URL )
     return redirect(url_for('base'))
 
 @store.route(BASE_URL + '/logout')

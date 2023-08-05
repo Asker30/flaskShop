@@ -59,7 +59,7 @@ def admin_login():
             session.append(name) 
             return redirect(url_for('database_list'))
         
-    return render_template('login.html' )
+    return render_template('admin_login.html' )
 
 @store.route(BASE_URL + '/logout')
 def admin_logout():
