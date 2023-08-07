@@ -8,14 +8,22 @@ session = list() # список для хранения данных о поль
 def root_redirect():
     return redirect(url_for('base'))
 
-@store.route(BASE_URL + '/', methods=['GET'])
+@store.route(BASE_URL + '/product/', methods=['GET'])
 def base():
     """Базовая страница"""
     if session:
         products = models.Product.query.all()
         return render_template('product_list.html', products=products)
-    else:
-        return redirect(url_for('register'))
+    
+    return redirect(url_for('register'))
+    
+@store.route(BASE_URL + '/product/<string:id>', methods=['GET'])
+def product_view(id):
+    if session:
+        product = models.Product.query.filter_by(id=id).first()
+        return render_template('product.html', product=product)
+    return redirect(url_for('login'))
+        
 
 @store.route(BASE_URL + '/register', methods=['POST', 'GET'])
 def register():

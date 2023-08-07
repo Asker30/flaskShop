@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+<html>
+<head>
+    <title>product.title</title>
+</head>
+{% block content%}
+<body>
+    <h1><strong>{{ product.title }}</strong><br></h1>
+    Описание: {{ product.description }}<br>
+    Цена: {{ product.price }}<br>
+    Количество: {{ product.count }}<br>
+    <!-- Путь к изображениям фотографий должен быть правильным, в зависимости от вашего приложения -->
+    <img src="{{url_for('static', filename='img/' + product.img)}}" width="130" height="130">
+</body>
+{% endblock %}
+</html>

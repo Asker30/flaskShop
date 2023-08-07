@@ -9,7 +9,7 @@
     <ul>
         {% for product in products %}
         <li>
-            <strong>{{ product.title }}</strong><br>
+            <a href="{{ product.id }}"><strong>{{ product.title }}</strong><br></a>
             Описание: {{ product.description }}<br>
             Цена: {{ product.price }}<br>
             Количество: {{ product.count }}<br>
