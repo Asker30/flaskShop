@@ -46,3 +46,11 @@ class Comment(db.Model):
     
     def __repr__(self):
         return f'Comment: {self.comment_creat}'
+    
+    
+    class Session:
+        def __init__(self, user):
+            self.user = user
+            
+        def get(self):
+            return self.user.id

@@ -11,6 +11,22 @@
     Количество: {{ product.count }}<br>
     <!-- Путь к изображениям фотографий должен быть правильным, в зависимости от вашего приложения -->
     <img src="{{url_for('static', filename='img/' + product.img)}}" width="130" height="130">
+    <h1>Комменарии</h1>
+    {% if comments %}
+        <dl>
+            {% for comment in comments %}
+            <p>
+                <dt>{{ comment.user_id }}  {{comment.comment_creat}}</dt>
+                <dd>{{comment.text}}</dd>
+            </p>
+            {% endfor %}
+        </dl>
+        {% endif %}
+    <form method="post">
+        <label for="text">Оставьте свой комментарий:</label>
+        <input type="text" name="text">
+        <input type="submit" value="отправить">
+    </form>
 </body>
 {% endblock %}
 </html>

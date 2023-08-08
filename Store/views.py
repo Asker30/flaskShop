@@ -17,11 +17,28 @@ def base():
     
     return redirect(url_for('register'))
     
-@store.route(BASE_URL + '/product/<string:id>', methods=['GET'])
+@store.route(BASE_URL + '/product/<string:id>', methods=['GET', 'POST'])
 def product_view(id):
     if session:
-        product = models.Product.query.filter_by(id=id).first()
-        return render_template('product.html', product=product)
+        product = models.Product.query.get(id)
+        comments = models.Comment.query.filter_by(product_id=product.id)
+        user = models.Users.query.filter_by(name=session[0]).first().name
+        print(session[0])
+        if request.form:
+            text = request.form['text']
+            new_comment = models.Comment(product_id=product.id, user_id=user, text=text)
+            try:
+                db.session.add(new_comment)
+                db.session.commit()
+                return redirect(url_for('base'))
+            except:
+                db.session.rollback()
+                abort(404)
+            finally:
+                db.session.close()
+            
+        return render_template('product.html', product=product, comments=comments)
+    
     return redirect(url_for('login'))
         
 
@@ -73,5 +90,5 @@ def check_login(name=None, password=None) -> bool:
     if name and password:
         user = models.Users.query.filter_by(name=name, psw=password).first()
         if user:
-            return True
-    return False
+            return user
+        
